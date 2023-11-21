@@ -26,7 +26,7 @@ int main(){
 		printf("%lf",fm);
 		printf("\nNew interval[%lf,%lf]",a,b);
 	}
-	while(abs(fm) > tol);
+	while(fabs(fm) > tol);
 
 	return 0;
 }
