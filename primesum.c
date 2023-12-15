@@ -6,6 +6,7 @@
 #include <stdarg.h>
 
 
+
 #define calltime_r(func, ...) \
     ({ \
         clock_t start_t = clock(); \
@@ -23,24 +24,26 @@
         clock_t end_t = clock(); \
         printf("Execution time: %f seconds\n", ((double)(end_t - start_t)) / CLOCKS_PER_SEC); \
     }
-void displayPrimes(long long int upper){
-	unsigned long long int *ar = malloc(upper * sizeof(unsigned long long int));
-    if (ar == NULL) {
-        fprintf(stderr, "Memory allocation failed.\n");
-        exit(EXIT_FAILURE);
+
+typedef unsigned long long u64;
+
+void bprimes(u64 x) {
+    x /= 2;
+    u64 p = 0;
+    u64* ar = (u64*) malloc(x * sizeof(u64));
+    for (u64 i = 1; i < x; i++) {
+        if (ar[i] == 1) continue;
+        
+        p += 2 * i + 1;
+        for (u64 j = 3 * i + 1; j < x; j += 2 * i + 1) {
+            ar[j] = 1;
+        //    printf("j = %llu\n", 2 * j + 1);
+        }
     }
-	unsigned long long int p=0;
-	for(unsigned long long int i=2;i<upper;i++){
-		if(ar[i]==1) continue;
-		p+=i;
-		for(unsigned long long int j=i*2; j<upper;j+=i){
-			ar[j]=1;
-		}
-	}
-	printf("%llu\n",p);
+    printf("%llu\n", p + 2);
 }
-int main(){
-	unsigned long long int upper=500000000;
-	calltime(displayPrimes,upper);
-	return 0;
+int main() {
+    u64 upper = 500000000;
+    calltime(bprimes, upper);
+    return 0;
 }
