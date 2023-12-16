@@ -26,18 +26,19 @@
     }
 
 typedef unsigned long long u64;
+typedef char u8;
 
 void bprimes(u64 x) {
     x /= 2;
     u64 p = 0;
-    u64* ar = (u64*) malloc(x * sizeof(u64));
+    u8* ar = (u8*)calloc(x , sizeof(u8));
     for (u64 i = 1; i < x; i++) {
         if (ar[i] == 1) continue;
-        
+
         p += 2 * i + 1;
         for (u64 j = 3 * i + 1; j < x; j += 2 * i + 1) {
             ar[j] = 1;
-        //    printf("j = %llu\n", 2 * j + 1);
+            //    printf("j = %llu\n", 2 * j + 1);
         }
     }
     printf("%llu\n", p + 2);
