@@ -1,3 +1,3 @@
 # school
 
-This part of my git for boring school exercises
+This part of my git for school exercises
